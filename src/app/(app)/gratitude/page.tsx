@@ -41,7 +41,7 @@ export default async function GratitudePage() {
         </h2>
       </section>
 
-      <Card>
+      <Card className="border-emerald-200/80 bg-emerald-50/75">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Plus className="size-4" /> 새 감사노트
@@ -98,7 +98,7 @@ export default async function GratitudePage() {
         {notes && notes.length > 0 ? (
           <div className="space-y-3">
             {notes.map((note) => (
-              <Card key={note.id}>
+              <Card key={note.id} className="border-emerald-100/90 bg-white/70">
                 <CardHeader>
                   <CardDescription>
                     {formatKoreanDate(note.note_date)}
@@ -108,7 +108,7 @@ export default async function GratitudePage() {
                 <CardContent className="space-y-4">
                   <ul className="space-y-2 text-sm leading-6">
                     {note.items.map((item) => (
-                      <li key={item} className="rounded-lg bg-muted/40 px-3 py-2">
+                      <li key={item} className="rounded-lg bg-emerald-50/80 px-3 py-2">
                         {item}
                       </li>
                     ))}
@@ -119,7 +119,7 @@ export default async function GratitudePage() {
                     </p>
                   )}
 
-                  <details className="rounded-lg border bg-muted/20 p-3">
+                  <details className="rounded-lg border border-emerald-100 bg-white/55 p-3">
                     <summary className="cursor-pointer text-sm font-medium">
                       수정
                     </summary>

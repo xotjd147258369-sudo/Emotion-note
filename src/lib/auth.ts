@@ -1,6 +1,7 @@
 import type { SupabaseClient, User } from "@supabase/supabase-js"
 import { createClient } from "@supabase/supabase-js"
 import { redirect } from "next/navigation"
+import { cache } from "react"
 
 import type { Database } from "@/lib/database.types"
 import { getSupabaseEnv } from "@/lib/env"
@@ -76,7 +77,7 @@ export async function ensureProfile(
   return profile
 }
 
-export async function getAuthContext() {
+export const getAuthContext = cache(async function getAuthContext() {
   const supabase = await createSupabaseServerClient()
 
   if (!supabase) {
@@ -107,7 +108,7 @@ export async function getAuthContext() {
     user,
     profile,
   }
-}
+})
 
 export async function requireAuth() {
   const context = await getAuthContext()

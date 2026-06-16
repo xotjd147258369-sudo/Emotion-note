@@ -20,16 +20,16 @@ export default async function LoginPage() {
   }
 
   return (
-    <main className="min-h-dvh bg-background px-5 py-8 text-foreground">
+    <main className="min-h-dvh px-5 py-8 text-foreground">
       <div className="mx-auto flex min-h-[calc(100dvh-4rem)] w-full max-w-md flex-col justify-center">
-        <div className="mb-7">
+        <div className="mb-7 rounded-lg border border-white/70 bg-white/45 px-5 py-5 shadow-[0_18px_60px_-42px_oklch(0.35_0.08_35)] backdrop-blur">
           <p className="text-sm text-muted-foreground">감정 노트</p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight">
             오늘의 마음을 조용히 남겨두세요
           </h1>
         </div>
 
-        <Card>
+        <Card className="border-rose-200/80 bg-rose-50/80">
           <CardHeader>
             <CardTitle>시작하기</CardTitle>
           </CardHeader>
@@ -39,15 +39,15 @@ export default async function LoginPage() {
         </Card>
 
         <div className="mt-7 grid grid-cols-3 gap-2 text-center text-xs text-muted-foreground">
-          <div className="rounded-lg border bg-card px-2 py-3">
-            <BookOpenText className="mx-auto mb-2 size-4 text-emerald-700" />
+          <div className="rounded-lg border border-rose-100 bg-rose-50/80 px-2 py-3">
+            <BookOpenText className="mx-auto mb-2 size-4 text-rose-700" />
             감정 일기
           </div>
-          <div className="rounded-lg border bg-card px-2 py-3">
-            <HeartHandshake className="mx-auto mb-2 size-4 text-rose-700" />
+          <div className="rounded-lg border border-emerald-100 bg-emerald-50/80 px-2 py-3">
+            <HeartHandshake className="mx-auto mb-2 size-4 text-emerald-700" />
             감사노트
           </div>
-          <div className="rounded-lg border bg-card px-2 py-3">
+          <div className="rounded-lg border border-amber-100 bg-amber-50/85 px-2 py-3">
             <Sparkles className="mx-auto mb-2 size-4 text-amber-700" />
             문장 카드
           </div>

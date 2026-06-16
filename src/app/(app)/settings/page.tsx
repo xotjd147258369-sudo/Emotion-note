@@ -45,7 +45,7 @@ export default async function SettingsPage() {
         </h2>
       </section>
 
-      <Card>
+      <Card className="border-sky-200/80 bg-sky-50/75">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <UserRound className="size-4" /> 프로필
@@ -68,7 +68,7 @@ export default async function SettingsPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-violet-200/70 bg-violet-50/70">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <ShieldCheck className="size-4" /> 로그인
@@ -78,7 +78,9 @@ export default async function SettingsPage() {
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between rounded-lg border px-4 py-3 text-sm">
             <span>연결된 제공자</span>
-            <Badge variant="secondary">{provider}</Badge>
+            <Badge variant="secondary" className="bg-white/70">
+              {provider}
+            </Badge>
           </div>
           <form action={signOutAction}>
             <Button type="submit" variant="outline" className="w-full md:w-auto">
@@ -91,19 +93,19 @@ export default async function SettingsPage() {
       <section className="space-y-3">
         <h3 className="text-base font-semibold">기록 수</h3>
         <div className="grid gap-3 md:grid-cols-3">
-          <div className="rounded-lg border bg-card px-4 py-3">
+          <div className="rounded-lg border border-rose-100 bg-rose-50/75 px-4 py-3 shadow-sm">
             <p className="text-sm text-muted-foreground">감정 일기</p>
             <p className="mt-2 text-2xl font-semibold">
               {emotionCount.count ?? 0}
             </p>
           </div>
-          <div className="rounded-lg border bg-card px-4 py-3">
+          <div className="rounded-lg border border-emerald-100 bg-emerald-50/75 px-4 py-3 shadow-sm">
             <p className="text-sm text-muted-foreground">감사노트</p>
             <p className="mt-2 text-2xl font-semibold">
               {gratitudeCount.count ?? 0}
             </p>
           </div>
-          <div className="rounded-lg border bg-card px-4 py-3">
+          <div className="rounded-lg border border-amber-100 bg-amber-50/80 px-4 py-3 shadow-sm">
             <p className="text-sm text-muted-foreground">문장 카드</p>
             <p className="mt-2 text-2xl font-semibold">{cardCount.count ?? 0}</p>
           </div>

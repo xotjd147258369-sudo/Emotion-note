@@ -15,10 +15,10 @@ type MotivationCard = {
 }
 
 const themeClass = {
-  sage: "border-emerald-200 bg-emerald-50 text-emerald-950",
-  rose: "border-rose-200 bg-rose-50 text-rose-950",
-  amber: "border-amber-200 bg-amber-50 text-amber-950",
-  sky: "border-sky-200 bg-sky-50 text-sky-950",
+  sage: "border-emerald-200 bg-emerald-50/85 text-emerald-950",
+  rose: "border-rose-200 bg-rose-50/85 text-rose-950",
+  amber: "border-amber-200 bg-amber-50/90 text-amber-950",
+  sky: "border-sky-200 bg-sky-50/85 text-sky-950",
 }
 
 export function RandomCard({ cards }: { cards: MotivationCard[] }) {
@@ -34,7 +34,7 @@ export function RandomCard({ cards }: { cards: MotivationCard[] }) {
   return (
     <section
       className={cn(
-        "rounded-lg border p-5 shadow-sm",
+        "rounded-lg border p-5 shadow-[0_18px_60px_-42px_oklch(0.35_0.08_35)]",
         themeClass[card.theme]
       )}
     >
@@ -44,7 +44,7 @@ export function RandomCard({ cards }: { cards: MotivationCard[] }) {
           type="button"
           variant="outline"
           size="icon"
-          className="bg-white/60"
+          className="bg-white/75"
           onClick={() => setIndex((value) => (value + 1) % favoriteFirst.length)}
           aria-label="다른 카드 보기"
         >

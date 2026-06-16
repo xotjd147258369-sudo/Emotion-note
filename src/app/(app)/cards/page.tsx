@@ -28,14 +28,14 @@ import { cn } from "@/lib/utils"
 export const dynamic = "force-dynamic"
 
 const themeClass = {
-  sage: "border-emerald-200 bg-emerald-50",
-  rose: "border-rose-200 bg-rose-50",
-  amber: "border-amber-200 bg-amber-50",
-  sky: "border-sky-200 bg-sky-50",
+  sage: "border-emerald-200 bg-emerald-50/85",
+  rose: "border-rose-200 bg-rose-50/85",
+  amber: "border-amber-200 bg-amber-50/90",
+  sky: "border-sky-200 bg-sky-50/85",
 }
 
 const selectClass =
-  "h-8 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+  "h-9 w-full rounded-lg border border-input bg-white/70 px-3 text-sm shadow-inner shadow-amber-950/5 outline-none focus-visible:border-ring focus-visible:bg-white focus-visible:ring-3 focus-visible:ring-ring/25"
 
 export default async function CardsPage() {
   const { supabase } = await requireAuth()
@@ -56,7 +56,7 @@ export default async function CardsPage() {
 
       {cards && cards.length > 0 && <RandomCard cards={cards} />}
 
-      <Card>
+      <Card className="border-amber-200/80 bg-amber-50/75">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Sparkles className="size-4" /> 새 카드
@@ -117,7 +117,7 @@ export default async function CardsPage() {
               <article
                 key={card.id}
                 className={cn(
-                  "rounded-lg border p-4 text-sm shadow-sm",
+                  "rounded-lg border p-4 text-sm shadow-[0_18px_60px_-42px_oklch(0.35_0.08_35)]",
                   themeClass[card.theme]
                 )}
               >

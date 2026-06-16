@@ -51,7 +51,7 @@ export default async function HomePage() {
         .limit(8),
       supabase
         .from("emotion_entries")
-        .select("mood_score, entry_date")
+        .select("id, mood_score, entry_date")
         .order("entry_date", { ascending: false })
         .limit(7),
     ])
@@ -89,7 +89,7 @@ export default async function HomePage() {
       </section>
 
       <section className="grid gap-3 md:grid-cols-3">
-        <Card>
+        <Card className="border-rose-200/80 bg-rose-50/80">
           <CardHeader>
             <CardDescription>오늘 감정</CardDescription>
             <CardTitle>{emotion ? `${emotion.mood_score} / 5` : "비어 있음"}</CardTitle>
@@ -107,7 +107,7 @@ export default async function HomePage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-emerald-200/80 bg-emerald-50/80">
           <CardHeader>
             <CardDescription>오늘 감사</CardDescription>
             <CardTitle>
@@ -127,7 +127,7 @@ export default async function HomePage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-amber-200/80 bg-amber-50/85">
           <CardHeader>
             <CardDescription>최근 평균</CardDescription>
             <CardTitle>{averageMood}</CardTitle>
@@ -159,8 +159,8 @@ export default async function HomePage() {
           <div className="space-y-2">
             {recent.map((entry) => (
               <div
-                key={`${entry.entry_date}-${entry.mood_score}`}
-                className="flex items-center justify-between rounded-lg border bg-card px-4 py-3 text-sm"
+                key={entry.id}
+                className="flex items-center justify-between rounded-lg border border-white/70 bg-white/60 px-4 py-3 text-sm shadow-sm"
               >
                 <span>{formatKoreanDate(entry.entry_date)}</span>
                 <span className="font-medium">{entry.mood_score} / 5</span>

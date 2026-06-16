@@ -41,7 +41,7 @@ export default async function JournalPage() {
         </h2>
       </section>
 
-      <Card>
+      <Card className="border-rose-200/80 bg-rose-50/75">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Plus className="size-4" /> 새 기록
@@ -118,7 +118,7 @@ export default async function JournalPage() {
         {entries && entries.length > 0 ? (
           <div className="space-y-3">
             {entries.map((entry) => (
-              <Card key={entry.id}>
+              <Card key={entry.id} className="border-rose-100/90 bg-white/70">
                 <CardHeader>
                   <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                     <div>
@@ -138,7 +138,7 @@ export default async function JournalPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {entry.situation && (
-                    <p className="rounded-lg bg-muted/50 px-3 py-2 text-sm text-muted-foreground">
+                    <p className="rounded-lg bg-rose-50/80 px-3 py-2 text-sm text-muted-foreground">
                       {entry.situation}
                     </p>
                   )}
@@ -146,7 +146,7 @@ export default async function JournalPage() {
                     {entry.body}
                   </p>
 
-                  <details className="group rounded-lg border bg-muted/20 p-3">
+                  <details className="group rounded-lg border border-rose-100 bg-white/55 p-3">
                     <summary className="cursor-pointer text-sm font-medium">
                       수정
                     </summary>
