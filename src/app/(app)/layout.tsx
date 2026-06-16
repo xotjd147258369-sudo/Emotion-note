@@ -21,5 +21,9 @@ export default async function ProtectedLayout({
     redirect("/login")
   }
 
-  return <AppShell user={context.user}>{children}</AppShell>
+  return (
+    <AppShell user={context.user} profileDisplayName={context.profile?.display_name}>
+      {children}
+    </AppShell>
+  )
 }

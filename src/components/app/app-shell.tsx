@@ -23,16 +23,18 @@ const navItems = [
 
 type AppShellProps = {
   user: User
+  profileDisplayName?: string | null
   children: React.ReactNode
 }
 
-export function AppShell({ user, children }: AppShellProps) {
-  const name =
+export function AppShell({ user, profileDisplayName, children }: AppShellProps) {
+  const fallbackName =
     typeof user.user_metadata?.full_name === "string"
       ? user.user_metadata.full_name
       : typeof user.user_metadata?.name === "string"
         ? user.user_metadata.name
         : "오늘의 나"
+  const name = profileDisplayName?.trim() || fallbackName
 
   return (
     <div className="min-h-dvh bg-background text-foreground">

@@ -256,17 +256,21 @@ export async function updateProfileAction(formData: FormData) {
 
   const { error } = await supabase
     .from("profiles")
-    .update({
+    .upsert({
+      id: user.id,
       display_name: displayName || "감정 노트 사용자",
       timezone: "Asia/Seoul",
       updated_at: new Date().toISOString(),
+    }, {
+      onConflict: "id",
     })
-    .eq("id", user.id)
 
   if (error) throw new Error(error.message)
 
+  revalidatePath("/", "layout")
   revalidatePath("/settings")
   revalidatePath("/home")
+  redirect("/settings")
 }
 
 export async function signOutAction() {

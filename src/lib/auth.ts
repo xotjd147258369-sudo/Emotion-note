@@ -7,6 +7,7 @@ import { getSupabaseEnv } from "@/lib/env"
 import { createSupabaseServerClient } from "@/lib/supabase/server"
 
 type AppSupabaseClient = SupabaseClient<Database>
+type Profile = Database["public"]["Tables"]["profiles"]["Row"]
 
 function createSupabaseUserClient(accessToken: string) {
   const { url, anonKey, isConfigured } = getSupabaseEnv()
@@ -28,7 +29,17 @@ function createSupabaseUserClient(accessToken: string) {
 export async function ensureProfile(
   supabase: AppSupabaseClient,
   user: User
-) {
+): Promise<Profile | null> {
+  const { data: existingProfile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .maybeSingle()
+
+  if (existingProfile) {
+    return existingProfile
+  }
+
   const metadata = user.user_metadata ?? {}
   const displayName =
     typeof metadata.full_name === "string"
@@ -40,16 +51,29 @@ export async function ensureProfile(
   const avatarUrl =
     typeof metadata.avatar_url === "string" ? metadata.avatar_url : null
 
-  await supabase.from("profiles").upsert(
-    {
+  const { data: insertedProfile } = await supabase
+    .from("profiles")
+    .insert({
       id: user.id,
       display_name: displayName,
       avatar_url: avatarUrl,
       timezone: "Asia/Seoul",
       updated_at: new Date().toISOString(),
-    },
-    { onConflict: "id" }
-  )
+    })
+    .select("*")
+    .maybeSingle()
+
+  if (insertedProfile) {
+    return insertedProfile
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .maybeSingle()
+
+  return profile
 }
 
 export async function getAuthContext() {
@@ -74,15 +98,14 @@ export async function getAuthContext() {
     : null
   const dataSupabase = userSupabase ?? supabase
 
-  if (user) {
-    await ensureProfile(dataSupabase, user)
-  }
+  const profile = user ? await ensureProfile(dataSupabase, user) : null
 
   return {
     missingConfig: false as const,
     supabase: dataSupabase,
     authSupabase: supabase,
     user,
+    profile,
   }
 }
 
@@ -101,5 +124,6 @@ export async function requireAuth() {
     supabase: context.supabase,
     authSupabase: context.authSupabase,
     user: context.user,
+    profile: context.profile,
   }
 }

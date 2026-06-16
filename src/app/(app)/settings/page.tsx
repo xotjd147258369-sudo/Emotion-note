@@ -17,26 +17,23 @@ import { requireAuth } from "@/lib/auth"
 export const dynamic = "force-dynamic"
 
 export default async function SettingsPage() {
-  const { supabase, user } = await requireAuth()
+  const { supabase, user, profile } = await requireAuth()
 
-  const [profileResult, emotionCount, gratitudeCount, cardCount] =
-    await Promise.all([
-      supabase.from("profiles").select("*").eq("id", user.id).single(),
-      supabase
-        .from("emotion_entries")
-        .select("id", { count: "exact", head: true })
-        .eq("user_id", user.id),
-      supabase
-        .from("gratitude_notes")
-        .select("id", { count: "exact", head: true })
-        .eq("user_id", user.id),
-      supabase
-        .from("motivation_cards")
-        .select("id", { count: "exact", head: true })
-        .eq("user_id", user.id),
-    ])
+  const [emotionCount, gratitudeCount, cardCount] = await Promise.all([
+    supabase
+      .from("emotion_entries")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id),
+    supabase
+      .from("gratitude_notes")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id),
+    supabase
+      .from("motivation_cards")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id),
+  ])
 
-  const profile = profileResult.data
   const provider = user.app_metadata.provider ?? "social"
 
   return (
